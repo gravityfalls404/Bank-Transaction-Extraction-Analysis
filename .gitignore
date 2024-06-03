@@ -1,0 +1,6 @@
+.DS_Store
+statements/*
+__pycache__/*
+.vscode/launch.json
+.ipynb_checkpoints/*
+notebooks/.ipynb_checkpoints/*
