@@ -23,17 +23,18 @@ class Request:
     def parse_file_and_store(self) -> str:
         """Maethod which uses one of the parsing classes to parse the self.file based on the file type"""
         if self.file_type == FileType.XLSX:
-            parser = ExcelParser(self.file)
+            parser = ExcelParser(self.file, self.filename)
         elif self.file_type == FileType.DOCX:
-            parser = DocxParser(self.file)
+            parser = DocxParser(self.file, self.filename)
         elif self.file_type == FileType.PDF:
-            parser = PdfParser(self.file)
+            parser = PdfParser(self.file, self.filename)
         else:
             raise TypeError("File type not supported!")
-        
-        with open(os.path.join(Config.RAW_FILE_PATH, self.filename+'.txt'), 'w') as f:
-            f.write(parser)
+        parsed_text = parser.parse_file(self.file)
 
-        return parser
+        with open(os.path.join(Config.RAW_FILE_PATH, self.filename+'.txt'), 'w') as f:
+            f.write(parsed_text)
+
+        return parsed_text
 
         
