@@ -4,3 +4,4 @@ __pycache__/*
 .vscode/launch.json
 .ipynb_checkpoints/*
 files/notebooks/.ipynb_checkpoints/*
+utils/__pycache__/*
