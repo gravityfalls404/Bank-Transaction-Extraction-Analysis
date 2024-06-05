@@ -1,7 +1,7 @@
 .DS_Store
-files/statements/*
 __pycache__/*
 .vscode/launch.json
 .ipynb_checkpoints/*
 files/notebooks/.ipynb_checkpoints/*
 utils/__pycache__/*
+test.py

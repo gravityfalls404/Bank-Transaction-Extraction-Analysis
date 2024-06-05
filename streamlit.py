@@ -6,7 +6,7 @@ from utils.config import Config
 API_URL = 'http://127.0.0.1:5000/submit-statement'
 
 
-def file_size_under_limit(file):
+def file_size_under_limit(file) -> bool:
     """
         The function to check the file size of the uploaded file.
         Args:
@@ -25,6 +25,7 @@ def main():
     #Accepting file as input and restricting the type of file.
     st.title("Upload a Bank Statement to get the transaction details.")
     uploaded_file = st.file_uploader(f"Choose a file({'/'.join(Config.SUPPORTED_FILE_TYPES.value)})", type=Config.SUPPORTED_FILE_TYPES.value)
+    print(type(uploaded_file))
     if uploaded_file is not None:
         payload = {"filename": uploaded_file.name}
         files = {'file': uploaded_file.getvalue()}

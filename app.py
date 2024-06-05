@@ -1,10 +1,12 @@
 from flask import Flask, Response, request, send_from_directory, jsonify
+from utils.config import Config
 import json
 import os
-
+from utils.parsers import *
+from utils.request import Request
+from utils.gpt4 import GPT4
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'statements'
 
 @app.route('/health-check')
 def health_check():
@@ -20,17 +22,19 @@ def submit_statement():
     """
     file = request.files['file']
     file_name = request.args['filename']
-    file_type = file_name.split('.')[-1]
-    if file_type not in ['pdf', 'doc', 'docx', 'xls', 'xlsx']:
-        return Response(json.dumps({'error': 'File type not supported'}), status=400)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file_name))
+    file.save(os.path.join(Config.UPLOADED_FILE_PATH.values), file_name)
 
-    response = {}
+    ### Create a request object corresponding to an input file. It'll atomatically parse and store the contents.
+    request = Request(file, file_name)
+    
+    ### classify the request and store the results for raw response.
+    json_response = gpt4.get_llm_response(request)
 
-    with open('dummy.json', 'r') as f:
-        response = json.load(f)
-
-    return jsonify(response)
+    if not json_response:
+        return Response("Error occured while parsing the file.", status=400)
+    
+    return jsonify(json_response)
 
 if __name__ == '__main__':
+    gpt4 = GPT4()
     app.run(debug=True)
