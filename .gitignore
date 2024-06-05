@@ -1,6 +1,6 @@
 .DS_Store
-statements/*
+files/statements/*
 __pycache__/*
 .vscode/launch.json
 .ipynb_checkpoints/*
-notebooks/.ipynb_checkpoints/*
+files/notebooks/.ipynb_checkpoints/*
