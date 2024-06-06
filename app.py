@@ -1,5 +1,5 @@
 from flask import Flask, Response, request, send_from_directory, jsonify
-from utils.config import Config
+from utils.config import Config, create_dir_if_missing
 import json
 import os
 from utils.parsers import *
@@ -8,6 +8,9 @@ from utils.gpt4 import GPT4
 
 app = Flask(__name__)
 gpt4 = GPT4()
+
+create_dir_if_missing()
+
 @app.route('/health-check')
 def health_check():
     return Response("All Good!", status=200)

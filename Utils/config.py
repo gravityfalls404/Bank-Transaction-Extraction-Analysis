@@ -20,3 +20,14 @@ class FileType(Enum):
     PDF = "pdf"
     DOCX = "docx"
     XLSX = "xlsx"
+
+def create_dir_if_missing():
+    """
+        Method to create a directory if it doesn't exist.
+    """
+    if not os.path.exists(Config.UPLOADED_FILE_PATH.value):
+        os.makedirs(Config.UPLOADED_FILE_PATH.value)
+    if not os.path.exists(Config.RAW_FILE_PATH.value):
+        os.makedirs(Config.RAW_FILE_PATH.value)
+    if not os.path.exists(Config.CLASSIFIED_FILE_PATH.value):
+        os.makedirs(Config.CLASSIFIED_FILE_PATH.value)
