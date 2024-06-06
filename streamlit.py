@@ -25,7 +25,6 @@ def main():
     #Accepting file as input and restricting the type of file.
     st.title("Upload a Bank Statement to get the transaction details.")
     uploaded_file = st.file_uploader(f"Choose a file({'/'.join(Config.SUPPORTED_FILE_TYPES.value)})", type=Config.SUPPORTED_FILE_TYPES.value)
-    print(type(uploaded_file))
     if uploaded_file is not None:
         payload = {"filename": uploaded_file.name}
         files = {'file': uploaded_file.getvalue()}
@@ -42,7 +41,7 @@ def main():
             st.error("Error occured while parsing the file.")
         if response.status_code == 200:
             # Parse the JSON response
-            data = response.json().get("data")
+            data = response.json()
 
             # Check if the response is a list of JSON objects
             if isinstance(data, list):

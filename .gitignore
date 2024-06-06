@@ -6,3 +6,6 @@ files/notebooks/.ipynb_checkpoints/*
 utils/__pycache__/*
 test.py
 utils/parsers/*
+files/classified/*
+files/raw_files/*
+files/statements/*

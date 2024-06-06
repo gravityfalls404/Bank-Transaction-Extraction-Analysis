@@ -6,7 +6,7 @@ from utils.config import Config
 class Request:
     def __init__(self, file, filename):
         self.file = file
-        self.filename = filename.split('.')[-1]
+        self.filename = filename
         self.file_type = self.get_file_type()
         self.raw_parsed_content = self.parse_file_and_store()
 
@@ -30,9 +30,9 @@ class Request:
             parser = PdfParser(self.file, self.filename)
         else:
             raise TypeError("File type not supported!")
-        parsed_text = parser.parse_file(self.file)
+        parsed_text = parser.parse_file()
 
-        with open(os.path.join(Config.RAW_FILE_PATH, self.filename+'.txt'), 'w') as f:
+        with open(os.path.join(Config.RAW_FILE_PATH.value, self.filename.split('.')[0]+'.txt'), 'w') as f:
             f.write(parsed_text)
 
         return parsed_text

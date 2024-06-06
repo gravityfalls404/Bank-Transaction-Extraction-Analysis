@@ -9,8 +9,8 @@ from utils.config import Config
 
 class PdfParser(FileParser):
     def __init__(self, file, filename):
-        super.__init__(self, file, filename)
-        self.pdf_image = pdf2image.convert_from_path(os.path.join(Config.UPLOADED_FILE_PATH.value, filename+'.pdf'))
+        super().__init__(file, filename)
+        self.pdf_image = pdf2image.convert_from_path(os.path.join(Config.UPLOADED_FILE_PATH.value, filename))[0]
     
     def parse_file(self):
         model = lp.Detectron2LayoutModel('lp://PubLayNet/faster_rcnn_R_50_FPN_3x/config',

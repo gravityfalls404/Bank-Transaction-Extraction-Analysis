@@ -9,7 +9,7 @@ class FileParser():
 
     def store_parsed_text(self):
         
-        with open(os.path.join(Config.RAW_FILE_PATH, self.filename+'.txt'), 'w') as f:
+        with open(os.path.join(Config.RAW_FILE_PATH.value, self.filename), 'w') as f:
             f.write(self.parsed_text)
         
 

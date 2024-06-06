@@ -9,7 +9,6 @@ class GPT4:
     def __init__(self):
 
         self.client = openai.Client(api_key=os.environ.get("OPENAI_API_KEY"))
-
         self.prompt = None
         with open(Config.PROPMPT_FILE_PATH.value, 'r') as f:
             self.prompt = f.read()
@@ -19,22 +18,27 @@ class GPT4:
         
         if not request.raw_parsed_content:
             return None
-        
-        docs = [{"role": "system", "content": self.prompt + '\n' + request.raw_parsed_content}]
-        response = self.client.chat.completions.create(
-                        model="gpt-4",
-                        messages=docs
-                    )
-        ### LLM response in raw string format.
-        raw_string_response = response.choices[0].message.content
 
-        ### Store the raw string
-        with open(os.path.join(Config.CLASSIFIED_FILE_PATH, request.filename+'.txt'), 'w') as f:
-            f.write(raw_string_response)
+        if os.path.exists(os.path.join(Config.CLASSIFIED_FILE_PATH.value, request.filename.split('.')[0]+'.txt')):
+            print("File exists")
+            raw_string_response = open(os.path.join(Config.CLASSIFIED_FILE_PATH.value, request.filename.split('.')[0]+'.txt')).read()
+
+        else:
+            docs = [{"role": "system", "content": self.prompt + '\n' + request.raw_parsed_content}]
+            response = self.client.chat.completions.create(
+                            model="gpt-4",
+                            messages=docs
+                        )
+            ### LLM response in raw string format.
+            raw_string_response = response.choices[0].message.content
+
+            ### Store the raw string
+            with open(os.path.join(Config.CLASSIFIED_FILE_PATH.value, request.filename.split('.')[0]+'.txt'), 'w') as f:
+                f.write(raw_string_response)
 
         response_dict = self._parse_llm_response(raw_string_response)
 
-        with open(os.path.join(Config.CLASSIFIED_FILE_PATH, request.filename+'.json'), 'w') as file:
+        with open(os.path.join(Config.CLASSIFIED_FILE_PATH.value, request.filename.split('.')[0]+'.json'), 'w') as file:
             json.dump(response_dict, file, indent=4)
 
         return response_dict
