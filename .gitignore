@@ -5,7 +5,7 @@ __pycache__/*
 files/notebooks/.ipynb_checkpoints/*
 utils/__pycache__/*
 test.py
-utils/parsers/*
+utils/parsers/__pycache__/*
 files/classified/*
 files/raw_files/*
 files/statements/*

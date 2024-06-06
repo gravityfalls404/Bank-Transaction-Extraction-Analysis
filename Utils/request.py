@@ -4,6 +4,10 @@ from utils.parsers import *
 from utils.config import Config
 
 class Request:
+    """
+        Request class representing a request which the API recieves. Contains all the metadata and methods to parse the request
+        and generate the classification. Also responsible for storing the intermediate results in persistent storage.
+    """
     def __init__(self, file, filename):
         self.file = file
         self.filename = filename
@@ -21,7 +25,7 @@ class Request:
             raise TypeError("File type not supported!")
 
     def parse_file_and_store(self) -> str:
-        """Maethod which uses one of the parsing classes to parse the self.file based on the file type"""
+        """Method which uses one of the parsing classes to parse the self.file based on the file type"""
         if self.file_type == FileType.XLSX:
             parser = ExcelParser(self.file, self.filename)
         elif self.file_type == FileType.DOCX:

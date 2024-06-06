@@ -3,7 +3,7 @@ from enum import Enum
 
 class Config(Enum):
     """
-    Enum class to store all the configuration variables.
+    Enum class to store all the configuration variables along with storage paths.
     """
     MAX_FILE_SIZE = 3 # Maximum size of a file that can be uploaded on a streamlit server.
     SUPPORTED_FILE_TYPES = ["pdf", "docx", "xlsx"] # List of supported file types for bank statements.
@@ -14,6 +14,9 @@ class Config(Enum):
     PROPMPT_FILE_PATH = os.path.join("files", "prompt.txt") #Path to the custamized prompt file for the LLM
     
 class FileType(Enum):
+    """
+        Enum class representing a file type.
+    """
     PDF = "pdf"
     DOCX = "docx"
     XLSX = "xlsx"

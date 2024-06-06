@@ -20,6 +20,7 @@ def submit_statement():
         Returns:
             - A JSON response containing the parsed transactions along with the details - Date, Description, Amount, Type(Credit/Debit).
     """
+    ### Parsing the request body and file. Saving the received file in persistent storage.
     file = request.files['file']
     file_name = request.args['filename']
     file.save(os.path.join(Config.UPLOADED_FILE_PATH.value, file_name))
@@ -30,9 +31,11 @@ def submit_statement():
     ### classify the request and store the results for raw response.
     json_response = gpt4.get_llm_response(_request)
 
+    ### If the json response is None for any reason then return error message with 400.
     if not json_response:
         return Response("Error occured while parsing the file.", status=400)
     
+    ### Returning json response which will be displayed i
     return jsonify(json_response)
 
 if __name__ == '__main__':

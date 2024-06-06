@@ -6,6 +6,10 @@ import json
 
 from utils.request import Request
 class GPT4:
+    """
+        A singleton class representing the interaction with GPT4 API. Contains all the methods related to fetching and parsing 
+        the reponses from the LLM.
+    """
     def __init__(self):
 
         self.client = openai.Client(api_key=os.environ.get("OPENAI_API_KEY"))
@@ -15,6 +19,13 @@ class GPT4:
 
 
     def get_llm_response(self, request: Request)->str:
+        """
+            Method to fetch the response for the classification from the LLM.
+            Args:
+            - request: The request object containing the file and file name.
+            Returns:
+            - The json response from the LLM.
+        """
         
         if not request.raw_parsed_content:
             return None
@@ -45,6 +56,13 @@ class GPT4:
 
 
     def _parse_llm_response(self, response: str)->pd.DataFrame:
+        """
+            Method to parse the string response from the LLM which contains the table of contents.
+            Args:
+            - response: The string response fromt the LLM which contains the table of contents.
+            Returns:
+            - Json list containing the transaction details.
+        """
 
         ## Extracting lines from the response from LLM.
         lines = response.strip().split("\n")
