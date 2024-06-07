@@ -3,6 +3,9 @@
 
 The **Bank Transaction Extraction & Analysis** project aims to extract and classify transactions from bank statements into types: credit or debit. The input statements can be in `.docx`, `.pdf`, or `.xlsx` format. The final output is a table containing metadata for each transaction, including the date, description, amount, and type.
 
+![Alt Text](https://github.com/gravityfalls404/Bank-Transaction-Extraction-Analysis/blob/main/files/Bank-transcation.gif)
+
+
 ## Features
 
 - **Interactive UI:** Users can upload bank statement files through a Streamlit interface. The UI includes restrictions on file size and type.
